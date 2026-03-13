@@ -6,7 +6,7 @@ import AuthScreen from './screens/AuthScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import './App.css';
 
-function AppContent() {
+function App() {
   const [scannedProduct, setScannedProduct] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('scan');
