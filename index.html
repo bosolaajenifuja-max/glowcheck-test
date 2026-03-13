@@ -4,10 +4,22 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>glowcheck</title>
+    <title>GlowCheck</title>
+    <style>
+      body { background: #000; color: #fff; font-family: system-ui; }
+      .loading { padding: 20px; text-align: center; }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="loading">
+        <p>Loading GlowCheck...</p>
+        <p id="debug"></p>
+      </div>
+    </div>
+    <script>
+      document.getElementById('debug').textContent = 'JS running at ' + new Date().toISOString();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
