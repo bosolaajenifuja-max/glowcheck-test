@@ -13,6 +13,7 @@ function App() {
   const [scannerActive, setScannerActive] = useState(false);
   const [showSubmitForm, setShowSubmitForm] = useState(false);
   const [submittedProducts, setSubmittedProducts] = useState([]);
+  const [pendingBarcode, setPendingBarcode] = useState(null);
   const [showLegalModal, setShowLegalModal] = useState(false);
   const [legalSection, setLegalSection] = useState('terms');
   const scannerRef = useRef(null);
@@ -39,9 +40,11 @@ function App() {
                 setScannedProduct(product);
                 stopScanner();
               } else {
+                // Product not found - store barcode and go to submit form
+                setPendingBarcode(decodedText);
                 stopScanner();
                 setActiveTab('submit');
-                alert(`Product not found in database! Please submit details to help build our community database.`);
+                setShowSubmitForm(true);
               }
             },
             (errorMessage) => {
@@ -117,9 +120,10 @@ function App() {
         const calculatedScore = calculateScore(product);
         setScannedProduct({ ...product, overallScore: calculatedScore });
       } else {
-        // Product not found - go to submit form
+        // Product not found - store barcode and go to submit form
+        setPendingBarcode(result);
         setActiveTab('submit');
-        alert('Product not found in database! Please submit details to help build our community database.');
+        setShowSubmitForm(true);
       }
     }
   };
@@ -237,27 +241,50 @@ function App() {
     </div>
   );
 
-  const SubmitForm = () => {
+  const SubmitForm = ({ scannedBarcode = null }) => {
     const [formData, setFormData] = useState({
       name: '',
       brand: '',
       category: '',
       type: 'hair',
       ingredients: '',
-      notes: ''
+      notes: '',
+      image: null,
+      imagePreview: null
     });
+    const fileInputRef = useRef(null);
+
+    const handleImageUpload = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setFormData({ ...formData, image: file, imagePreview: reader.result });
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    const removeImage = () => {
+      setFormData({ ...formData, image: null, imagePreview: null });
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    };
 
     const handleSubmit = (e) => {
       e.preventDefault();
       const newSubmission = {
         ...formData,
-        ingredients: formData.ingredients.split(',').map(i => i.trim()),
+        barcode: scannedBarcode,
+        ingredients: formData.ingredients.split(',').map(i => i.trim()).filter(i => i),
         submittedAt: new Date().toISOString()
       };
       setSubmittedProducts([...submittedProducts, newSubmission]);
       alert('✅ Product submitted! Thanks for contributing to the GlowCheck community.');
-      setFormData({ name: '', brand: '', category: '', type: 'hair', ingredients: '', notes: '' });
+      setFormData({ name: '', brand: '', category: '', type: 'hair', ingredients: '', notes: '', image: null, imagePreview: null });
       setShowSubmitForm(false);
+      setPendingBarcode(null);
     };
 
     if (showSubmitForm) {
@@ -265,6 +292,9 @@ function App() {
         <div className="submit-form">
           <h3>📝 Submit a Product</h3>
           <p className="hint">Help grow our community database!</p>
+          {scannedBarcode && (
+            <p className="barcode-info">📷 Scanned: {scannedBarcode}</p>
+          )}
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -293,11 +323,37 @@ function App() {
               value={formData.category}
               onChange={(e) => setFormData({...formData, category: e.target.value})}
             />
+            
+            {/* Image upload section */}
+            <div className="image-upload-section">
+              <p className="image-upload-label">📸 Take a photo of the ingredients list</p>
+              <input
+                type="file"
+                ref={fileInputRef}
+                accept="image/*"
+                capture="environment"
+                onChange={handleImageUpload}
+                style={{ display: 'none' }}
+                id="image-upload"
+              />
+              <label htmlFor="image-upload" className="image-upload-btn">
+                {formData.imagePreview ? '📷 Change Photo' : '📷 Take Photo'}
+              </label>
+              {formData.imagePreview && (
+                <div className="image-preview">
+                  <img src={formData.imagePreview} alt="Ingredients" />
+                  <button type="button" className="remove-image-btn" onClick={removeImage}>✕</button>
+                </div>
+              )}
+            </div>
+            
+            <div className="manual-entry-toggle">
+              <p>Or enter ingredients manually:</p>
+            </div>
             <textarea
-              placeholder="Ingredients (comma separated) *"
+              placeholder="Ingredients (comma separated) - e.g., Water, Shea Butter, Coconut Oil"
               value={formData.ingredients}
               onChange={(e) => setFormData({...formData, ingredients: e.target.value})}
-              required
               rows={3}
             />
             <textarea
@@ -422,7 +478,7 @@ function App() {
 
         {activeTab === 'submit' && (
           <div className="submit-section">
-            <SubmitForm />
+            <SubmitForm scannedBarcode={pendingBarcode} />
             {submittedProducts.length > 0 && (
               <div className="submitted-list">
                 <h3>Your Submitted Products</h3>
