@@ -9,7 +9,16 @@ export default function AuthScreen({ onComplete }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   
-  const { login, signup } = useAuth();
+  const { login, loginAsGuest, signup } = useAuth();
+
+  const handleGuestLogin = async () => {
+    try {
+      await loginAsGuest();
+      onComplete?.();
+    } catch (err) {
+      setError(err.message || 'Something went wrong');
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,6 +95,13 @@ export default function AuthScreen({ onComplete }) {
 
       <div className="auth-demo">
         <p>Demo mode — use any email/password</p>
+      </div>
+
+      <div className="auth-guest">
+        <button onClick={handleGuestLogin} className="auth-guest-btn">
+          Continue as Guest →
+        </button>
+        <p className="auth-guest-hint">Browse and scan without an account</p>
       </div>
     </div>
   );

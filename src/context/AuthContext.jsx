@@ -51,6 +51,23 @@ export function AuthProvider({ children }) {
     return newUser;
   };
 
+  const loginAsGuest = async () => {
+    // Guest login - no account needed
+    const guestUser = {
+      id: 'guest_' + Date.now(),
+      email: 'guest@glowcheck.app',
+      name: 'Guest User',
+      avatar: null,
+      joinedAt: new Date().toISOString().split('T')[0],
+      savedProducts: [],
+      submittedProducts: [],
+      isGuest: true
+    };
+    setUser(guestUser);
+    // Don't save guest to localStorage (they're temporary)
+    return guestUser;
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem('glowcheck_user');
@@ -82,6 +99,7 @@ export function AuthProvider({ children }) {
       user,
       loading,
       login,
+      loginAsGuest,
       signup,
       logout,
       updateProfile,
