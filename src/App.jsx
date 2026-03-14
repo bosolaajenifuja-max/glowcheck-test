@@ -185,7 +185,7 @@ function App() {
           </button>
         ))}
       </div>
-      {selectedCategory && (
+      {selectedCategory && !showCategoryPage && (
         <div className="category-products">
           <p className="cat-header">📂 {categories.find(c => c.id === selectedCategory)?.name}:</p>
           <div className="product-grid">
