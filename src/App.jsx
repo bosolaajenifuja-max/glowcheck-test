@@ -30,6 +30,17 @@ function App() {
 
   const startScanner = async () => {
     try {
+      // First check if camera is available
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const videoDevices = devices.filter(device => device.kind === 'videoinput');
+      
+      if (videoDevices.length === 0) {
+        throw new Error("No camera found");
+      }
+      
+      // Request camera permission explicitly
+      await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+      
       setScannerActive(true);
       
       html5QrCodeRef.current = new Html5Qrcode("scanner-container");
@@ -60,8 +71,15 @@ function App() {
       );
     } catch (err) {
       console.error("Scanner error:", err);
-      alert("Camera not available. Try using the sample products below instead.");
       setScannerActive(false);
+      // More helpful error message
+      if (err.name === 'NotAllowedError' || err.message.includes('Permission denied')) {
+        alert("Camera access denied. Please allow camera access in your browser settings and try again.");
+      } else if (err.name === 'NotFoundError' || err.message.includes('No camera found')) {
+        alert("No camera found on this device.");
+      } else {
+        alert("Camera not available. Try using the sample products below instead.");
+      }
     }
   };
 
