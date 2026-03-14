@@ -9,6 +9,7 @@ export const products = [
     brand: "Cantu",
     category: "Shampoo",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=100&h=100&fit=crop",
     ingredients: ["Water", "Shea Butter", "Coconut Oil", "Glycerin", "Beeswax", "Fragrance", "Sodium Lauryl Sulfate"],
     ratings: {
       ingredientSafety: 3,
@@ -32,6 +33,7 @@ export const products = [
     brand: "Mielle",
     category: "Shampoo",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=100&h=100&fit=crop",
     ingredients: ["Water", "Rosemary Extract", "Peppermint", "Castor Oil", "Coconut Oil", "Vitamin E", "Aloe Vera"],
     ratings: {
       ingredientSafety: 5,
@@ -55,6 +57,7 @@ export const products = [
     brand: "Pattern",
     category: "Shampoo",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=100&h=100&fit=crop",
     ingredients: ["Water", "Aloe Vera", "Shea Butter", "Jojoba Oil", "Argan Oil", "Fragrance", "Cocamidopropyl Betaine"],
     ratings: {
       ingredientSafety: 4,
@@ -77,6 +80,7 @@ export const products = [
     brand: "Aunt Jackie's",
     category: "Shampoo",
     type: "hair",
+    image: null,
     ingredients: ["Water", "Buttermilk", "Shea Butter", "Coconut Oil", "Glycerin", "Beeswax", "Fragrance"],
     ratings: {
       ingredientSafety: 4,
@@ -98,6 +102,7 @@ export const products = [
     brand: "SheaMoisture",
     category: "Shampoo",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1571781565023-4d619426f83c?w=100&h=100&fit=crop",
     ingredients: ["Water", "Coconut Oil", "Shea Butter", "Sea Moss", "Keratin", "Argan Oil", "Fragrance"],
     ratings: {
       ingredientSafety: 4,
@@ -121,6 +126,7 @@ export const products = [
     brand: "Cantu",
     category: "Deep Conditioner",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=100&h=100&fit=crop",
     ingredients: ["Water", "Shea Butter", "Coconut Oil", "Beeswax", "Glycerin", "Mineral Oil", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -143,6 +149,7 @@ export const products = [
     brand: "Mielle",
     category: "Conditioner",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=100&h=100&fit=crop",
     ingredients: ["Water", "Honey", "Babassu Oil", "Sea Moss", "Ginger", "Turmeric", "Vitamin E"],
     ratings: {
       ingredientSafety: 5,
@@ -165,6 +172,7 @@ export const products = [
     brand: "Pattern",
     category: "Conditioner",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=100&h=100&fit=crop",
     ingredients: ["Water", "Aloe Vera", "Shea Butter", "Jojoba Oil", "Argan Oil", "Squalane", "Fragrance"],
     ratings: {
       ingredientSafety: 4,
@@ -188,6 +196,7 @@ export const products = [
     brand: "Mielle",
     category: "Hair Oil",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=100&h=100&fit=crop",
     ingredients: ["Water", "Rosemary Extract", "Peppermint", "Castor Oil", "Coconut Oil", "Vitamin E", "Biotin"],
     ratings: {
       ingredientSafety: 5,
@@ -210,6 +219,7 @@ export const products = [
     brand: "Cantu",
     category: "Hair Oil",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=100&h=100&fit=crop",
     ingredients: ["Jamaican Black Castor Oil", "Shea Butter", "Coconut Oil", "Vitamin E", "Fragrance"],
     ratings: {
       ingredientSafety: 4,
@@ -231,6 +241,7 @@ export const products = [
     brand: "Blue Magic",
     category: "Hair Oil",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1617897903246-719242758050?w=100&h=100&fit=crop",
     ingredients: ["Jamaican Black Castor Oil", "Beeswax", "Mineral Oil", "Lanolin", "Vitamin E"],
     ratings: {
       ingredientSafety: 2,
@@ -255,6 +266,7 @@ export const products = [
     brand: "Cantu",
     category: "Styling Spray",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=100&h=100&fit=crop",
     ingredients: ["Water", "Shea Butter", "Beeswax", "Glycerin", "Alcohol", "Fragrance", "VP/VA Copolymer"],
     ratings: {
       ingredientSafety: 2,
@@ -277,6 +289,7 @@ export const products = [
     brand: "Eco Style",
     category: "Styling Mousse",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=100&h=100&fit=crop",
     ingredients: ["Water", "Polyurethane-14", "AMP-Acrylates Copolymer", "Glycerin", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -298,6 +311,7 @@ export const products = [
     brand: "Eco Style",
     category: "Styling Gel",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=100&h=100&fit=crop",
     ingredients: ["Water", "Carbomer", "Triethanolamine", "Argan Oil", "Glycerin", "Fragrance", "VP/VA Copolymer"],
     ratings: {
       ingredientSafety: 4,
@@ -321,6 +335,7 @@ export const products = [
     brand: "Cantu",
     category: "Hair Cream",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=100&h=100&fit=crop",
     ingredients: ["Water", "Shea Butter", "Coconut Oil", "Glycerin", "Beeswax", "Mineral Oil", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -343,6 +358,7 @@ export const products = [
     brand: "Mielle",
     category: "Hair Milk",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=100&h=100&fit=crop",
     ingredients: ["Water", "Coconut Oil", "Babassu Oil", "Turmeric", "Ginger", "Sea Moss", "Vitamin E"],
     ratings: {
       ingredientSafety: 5,
@@ -364,6 +380,7 @@ export const products = [
     brand: "Pattern",
     category: "Hair Cream",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=100&h=100&fit=crop",
     ingredients: ["Water", "Aloe Vera", "Shea Butter", "Jojoba Oil", "Argan Oil", "Squalane", "Fragrance"],
     ratings: {
       ingredientSafety: 4,
@@ -385,6 +402,7 @@ export const products = [
     brand: "SheaMoisture",
     category: "Hair Cream",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1571781565023-4d619426f83c?w=100&h=100&fit=crop",
     ingredients: ["Water", "Coconut Oil", "Shea Butter", "Flaxseed", "Kenya Highland", "Murumuru Butter", "Vitamin E"],
     ratings: {
       ingredientSafety: 5,
@@ -406,6 +424,7 @@ export const products = [
     brand: "Aunt Jackie's",
     category: "Hair Cream",
     type: "hair",
+    image: null,
     ingredients: ["Water", "Buttermilk", "Shea Butter", "Coconut Oil", "Flaxseed", "Quinoa", "Fragrance"],
     ratings: {
       ingredientSafety: 4,
@@ -429,6 +448,7 @@ export const products = [
     brand: "Cantu",
     category: "Body Lotion",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=100&h=100&fit=crop",
     ingredients: ["Water", "Shea Butter", "Coconut Oil", "Glycerin", "Mineral Oil", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -449,6 +469,7 @@ export const products = [
     brand: "Palmer's",
     category: "Body Lotion",
     type: "skincare",
+    image: null,
     ingredients: ["Water", "Cocoa Butter", "Vitamin E", "Shea Butter", "Jojoba Oil", "Fragrance"],
     ratings: {
       ingredientSafety: 4,
@@ -468,6 +489,7 @@ export const products = [
     brand: "Ambi",
     category: "Body Lotion",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=100&h=100&fit=crop",
     ingredients: ["Water", "Glycolic Acid", "Kojic Acid", "Vitamin E", "Shea Butter", "Fragrance"],
     ratings: {
       ingredientSafety: 2,
@@ -488,6 +510,7 @@ export const products = [
     brand: "Nivea",
     category: "Body Lotion",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1571875257727-256c39da42af?w=100&h=100&fit=crop",
     ingredients: ["Water", "Cocoa Butter", "Glycerin", "Mineral Oil", "Fragrance", "Vitamin E"],
     ratings: {
       ingredientSafety: 4,
@@ -507,6 +530,7 @@ export const products = [
     brand: "Dove",
     category: "Body Lotion",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=100&h=100&fit=crop",
     ingredients: ["Water", "Glycerin", "Stearic Acid", "Mineral Oil", "Vitamin E", "Fragrance"],
     ratings: {
       ingredientSafety: 4,
@@ -526,6 +550,7 @@ export const products = [
     brand: "Olay",
     category: "Face Moisturizer",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1556229010-6c3e2b2e9f7c?w=100&h=100&fit=crop",
     ingredients: ["Water", "Glycerin", "Niacinamide", "Vitamin B3", "Peptides", "Fragrance"],
     ratings: {
       ingredientSafety: 5,
@@ -545,6 +570,7 @@ export const products = [
     brand: "CeraVe",
     category: "Face Moisturizer",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1556228841-a45e6e33473b?w=100&h=100&fit=crop",
     ingredients: ["Water", "Ceramides", "Hyaluronic Acid", "Glycerin", "Niacinamide"],
     ratings: {
       ingredientSafety: 5,
@@ -564,6 +590,7 @@ export const products = [
     brand: "The Ordinary",
     category: "Face Moisturizer",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?w=100&h=100&fit=crop",
     ingredients: ["Water", "Glycerin", "Ceramides", "Squalane", "Sodium Hyaluronate", "Tocopherol"],
     ratings: {
       ingredientSafety: 5,
@@ -585,6 +612,7 @@ export const products = [
     brand: "Pantene",
     category: "Shampoo",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=100&h=100&fit=crop",
     ingredients: ["Water", "Sodium Lauryl Sulfate", "Sodium Laureth Sulfate", "Cocamide MEA", "Glycerin", "Panthenol", "Fragrance"],
     ratings: {
       ingredientSafety: 2,
@@ -607,6 +635,7 @@ export const products = [
     brand: "Head & Shoulders",
     category: "Shampoo",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1571781535014-53bd94aa31d7?w=100&h=100&fit=crop",
     ingredients: ["Water", "Sodium Lauryl Sulfate", "Zinc Pyrithione", "Sodium Laureth Sulfate", "Cocamide MEA", "Fragrance", "Sodium Chloride"],
     ratings: {
       ingredientSafety: 3,
@@ -628,6 +657,7 @@ export const products = [
     brand: "Tresemmé",
     category: "Shampoo",
     type: "hair",
+    image: null,
     ingredients: ["Water", "Sodium Lauryl Sulfate", "Cocamidopropyl Betaine", "Glycerin", "Vitamin E", "Argan Oil", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -649,6 +679,7 @@ export const products = [
     brand: "Garnier",
     category: "Shampoo",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=100&h=100&fit=crop",
     ingredients: ["Water", "Sodium Laureth Sulfate", "Coco-Betaine", "Glycerin", "Fruit Extracts", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -670,6 +701,7 @@ export const products = [
     brand: "Herbal Essences",
     category: "Shampoo",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=100&h=100&fit=crop",
     ingredients: ["Water", "Sodium Lauryl Sulfate", "Sodium Laureth Sulfate", "Cocamidopropyl Betaine", "Aloe", "Mango", "Passion Fruit", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -691,6 +723,7 @@ export const products = [
     brand: "Aussie",
     category: "Shampoo",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=100&h=100&fit=crop",
     ingredients: ["Water", "Sodium Lauryl Sulfate", "Cocamidopropyl Betaine", "Aloe Vera", "Jojoba Oil", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -712,6 +745,7 @@ export const products = [
     brand: "John Frieda",
     category: "Shampoo",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=100&h=100&fit=crop",
     ingredients: ["Water", "Sodium Lauryl Sulfate", "Cocamidopropyl Betaine", "Silicones", "Glycerin", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -735,6 +769,7 @@ export const products = [
     brand: "Pantene",
     category: "Conditioner",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=100&h=100&fit=crop",
     ingredients: ["Water", "Cetearyl Alcohol", "Stearyl Alcohol", "Cetyl Alcohol", "Panthenol", "Glycerin", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -756,6 +791,7 @@ export const products = [
     brand: "Head & Shoulders",
     category: "Conditioner",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1571781535014-53bd94aa31d7?w=100&h=100&fit=crop",
     ingredients: ["Water", "Cetearyl Alcohol", "Zinc Pyrithione", "Stearyl Alcohol", "Cetyl Alcohol", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -776,6 +812,7 @@ export const products = [
     brand: "Tresemmé",
     category: "Conditioner",
     type: "hair",
+    image: null,
     ingredients: ["Water", "Cetearyl Alcohol", "Behentrimonium Chloride", "Argan Oil", "Vitamin E", "Fragrance"],
     ratings: {
       ingredientSafety: 4,
@@ -798,6 +835,7 @@ export const products = [
     brand: "Tresemmé",
     category: "Hairspray",
     type: "hair",
+    image: null,
     ingredients: ["Alcohol Denat.", "Water", "VA/Crotonates/Vinyl Neodecanoate Copolymer", "Aminomethyl Propanol", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -819,6 +857,7 @@ export const products = [
     brand: "Pantene",
     category: "Styling Cream",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=100&h=100&fit=crop",
     ingredients: ["Water", "Cyclopentasiloxane", "Glycerin", "Phenyl Trimethicone", "Panthenol", "Fragrance"],
     ratings: {
       ingredientSafety: 4,
@@ -839,6 +878,7 @@ export const products = [
     brand: "Aussie",
     category: "Styling Spray",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=100&h=100&fit=crop",
     ingredients: ["Water", "Polyurethane-14", "AMP-Acrylates Copolymer", "Mango Extract", "Fragrance"],
     ratings: {
       ingredientSafety: 3,
@@ -862,6 +902,7 @@ export const products = [
     brand: "CeraVe",
     category: "Face Cleanser",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1556228841-a45e6e33473b?w=100&h=100&fit=crop",
     ingredients: ["Water", "Ceramides", "Niacinamide", "Hyaluronic Acid", "Sodium Lauroyl Sarcosinate"],
     ratings: {
       ingredientSafety: 5,
@@ -881,6 +922,7 @@ export const products = [
     brand: "The Ordinary",
     category: "Face Serum",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?w=100&h=100&fit=crop",
     ingredients: ["Water", "Glycolic Acid", "Rosa Canina Fruit", "Aloe Barbadensis", "Tocopherol"],
     ratings: {
       ingredientSafety: 4,
@@ -901,6 +943,7 @@ export const products = [
     brand: "Olay",
     category: "Face Serum",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1556229010-6c3e2b2e9f7c?w=100&h=100&fit=crop",
     ingredients: ["Water", "Glycerin", "Niacinamide", "Peptides", "Vitamin B3", "Fragrance"],
     ratings: {
       ingredientSafety: 5,
@@ -920,6 +963,7 @@ export const products = [
     brand: "Neutrogena",
     category: "Face Moisturizer",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1556227848-4f87c323962e?w=100&h=100&fit=crop",
     ingredients: ["Water", "Glycerin", "Hyaluronic Acid", "Cetearyl Olivate", "Sorbitan Olivate"],
     ratings: {
       ingredientSafety: 5,
@@ -939,6 +983,7 @@ export const products = [
     brand: "Garnier",
     category: "Face Cleanser",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=100&h=100&fit=crop",
     ingredients: ["Water", "Hexylene Glycol", "Glycerin", "Poloxamer 184", "Disodium EDTA"],
     ratings: {
       ingredientSafety: 5,
@@ -958,6 +1003,7 @@ export const products = [
     brand: "Simple",
     category: "Face Moisturizer",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=100&h=100&fit=crop",
     ingredients: ["Water", "Glycerin", "Vitamin B3", "Allantoin", "Chamomile Extract", "Linalool"],
     ratings: {
       ingredientSafety: 5,
@@ -977,6 +1023,7 @@ export const products = [
     brand: "La Roche-Posay",
     category: "Face Cleanser",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=100&h=100&fit=crop",
     ingredients: ["Water", "Zinc PCA", "Glycerin", "Coco-Betaine", "Lauric Acid", "Niacinamide"],
     ratings: {
       ingredientSafety: 5,
@@ -998,6 +1045,7 @@ export const products = [
     brand: "Cecred",
     category: "Hair Oil",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1617897903246-719242758050?w=100&h=100&fit=crop",
     ingredients: ["Water", "Rosemary Extract", "Peppermint", "Castor Oil", "Coconut Oil", "Vitamin E", "Black Seed Oil", "Algae Extract"],
     ratings: {
       ingredientSafety: 5,
@@ -1020,6 +1068,7 @@ export const products = [
     brand: "Cecred",
     category: "Scalp Treatment",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1617897903246-719242758050?w=100&h=100&fit=crop",
     ingredients: ["Water", "Rosemary", "Peppermint", "Tea Tree Oil", "Aloe Vera", "Vitamin E", "Ginger", "Ginseng"],
     ratings: {
       ingredientSafety: 5,
@@ -1041,6 +1090,7 @@ export const products = [
     brand: "Cecred",
     category: "Hair Serum",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1617897903246-719242758050?w=100&h=100&fit=crop",
     ingredients: ["Water", "Argan Oil", "Jojoba Oil", "Vitamin E", "Rosemary Extract", "Biotin", "Keratin"],
     ratings: {
       ingredientSafety: 5,
@@ -1064,6 +1114,7 @@ export const products = [
     brand: "Topicals",
     category: "Face Serum",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=100&h=100&fit=crop",
     ingredients: ["Water", "Niacinamide", "Turmeric", "Alpha Arbutin", "Kojic Acid", "Vitamin C", "Glycolic Acid", "Snail Mucin"],
     ratings: {
       ingredientSafety: 4,
@@ -1086,6 +1137,7 @@ export const products = [
     brand: "Topicals",
     category: "Face Mask",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=100&h=100&fit=crop",
     ingredients: ["Water", "Glycerin", "Shea Butter", "Ceramides", "Hyaluronic Acid", "Centella Asiatica", "Vitamin E"],
     ratings: {
       ingredientSafety: 5,
@@ -1105,6 +1157,7 @@ export const products = [
     brand: "Topicals",
     category: "Body Butter",
     type: "skincare",
+    image: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=100&h=100&fit=crop",
     ingredients: ["Water", "Shea Butter", "Coconut Oil", "Vitamin E", "Niacinamide", "Centella Asiatica", "Glycerin"],
     ratings: {
       ingredientSafety: 5,
@@ -1126,6 +1179,7 @@ export const products = [
     brand: "Plantmade",
     category: "Styling Spray",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=100&h=100&fit=crop",
     ingredients: ["Water", "Flaxseed", "Rice Bran", "Oat Extract", "Glycerin", "Aloe Vera", "Vitamin E", "Fragrance"],
     ratings: {
       ingredientSafety: 5,
@@ -1148,6 +1202,7 @@ export const products = [
     brand: "Plantmade",
     category: "Texture Spray",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=100&h=100&fit=crop",
     ingredients: ["Water", "Flaxseed Gel", "Oat Protein", "Rice Starch", "Glycerin", "Aloe Vera", "Fragrance"],
     ratings: {
       ingredientSafety: 5,
@@ -1169,6 +1224,7 @@ export const products = [
     brand: "Plantmade",
     category: "Styling Foam",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=100&h=100&fit=crop",
     ingredients: ["Water", "Flaxseed", "Rice Bran", "Coconut Oil", "Glycerin", "Aloe Vera", "Vitamin E"],
     ratings: {
       ingredientSafety: 5,
@@ -1190,6 +1246,7 @@ export const products = [
     brand: "Plantmade",
     category: "Hair Cream",
     type: "hair",
+    image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=100&h=100&fit=crop",
     ingredients: ["Water", "Shea Butter", "Coconut Oil", "Flaxseed", "Glycerin", "Aloe Vera", "Vitamin E", "Fragrance"],
     ratings: {
       ingredientSafety: 4,

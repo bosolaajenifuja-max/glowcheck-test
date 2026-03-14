@@ -423,21 +423,43 @@ body {
   gap: var(--space-sm);
 }
 
-.product-grid button {
-  width: 100%;
-  padding: var(--space-sm) var(--space-md);
+.product-btn-with-image {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm);
   background: var(--bg-tertiary);
   border: none;
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-size: 0.85rem;
-  text-align: left;
+  border-radius: var(--radius-md);
   cursor: pointer;
+  text-align: left;
 }
 
-.product-grid button:hover {
+.product-btn-with-image:hover {
   background: var(--accent-primary);
   color: #000;
+}
+
+.product-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-brand {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.product-name {
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .empty {
