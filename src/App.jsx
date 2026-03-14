@@ -439,23 +439,6 @@ function App() {
 
         {activeTab === 'browse' && (
           <div className="browse-section">
-            <h2>Browse by Category</h2>
-            <div className="category-section">
-              <h3>💇‍♀️ Hair Care</h3>
-              <div className="categories">
-                {['Hair Cream', 'Hair Oil', 'Styling Gel', 'Leave-In Conditioner'].map(cat => (
-                  <button key={cat} className="category-btn">{cat}</button>
-                ))}
-              </div>
-            </div>
-            <div className="category-section">
-              <h3>🧴 Skincare</h3>
-              <div className="categories">
-                {['Body Lotion', 'Body Wash', 'Hand Cream', 'Face Serum', 'Cleanser'].map(cat => (
-                  <button key={cat} className="category-btn">{cat}</button>
-                ))}
-              </div>
-            </div>
             <CategoryButtons />
           </div>
         )}
