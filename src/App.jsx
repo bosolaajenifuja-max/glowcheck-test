@@ -140,6 +140,63 @@ function App() {
     p.brand.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const categories = [
+    { id: 'shampoo', name: 'Shampoo', icon: '🧴', type: 'hair' },
+    { id: 'conditioner', name: 'Conditioner', icon: '💧', type: 'hair' },
+    { id: 'deep-conditioner', name: 'Deep Conditioner', icon: '✨', type: 'hair' },
+    { id: 'hair-oil', name: 'Hair Oil', icon: '🫒', type: 'hair' },
+    { id: 'hair-cream', name: 'Hair Cream', icon: '🧈', type: 'hair' },
+    { id: 'hair-milk', name: 'Hair Milk', icon: '🥛', type: 'hair' },
+    { id: 'styling-cream', name: 'Styling Cream', icon: '🎨', type: 'hair' },
+    { id: 'styling-gel', name: 'Styling Gel', icon: '🧪', type: 'hair' },
+    { id: 'styling-mousse', name: 'Styling Mousse', icon: '☁️', type: 'hair' },
+    { id: 'styling-spray', name: 'Styling Spray', icon: '喷雾', type: 'hair' },
+    { id: 'scalp-treatment', name: 'Scalp Treatment', icon: '头皮', type: 'hair' },
+    { id: 'face-cleanser', name: 'Face Cleanser', icon: '🧼', type: 'skincare' },
+    { id: 'face-moisturizer', name: 'Face Moisturizer', icon: '💦', type: 'skincare' },
+    { id: 'face-serum', name: 'Face Serum', icon: '💧', type: 'skincare' },
+    { id: 'face-mask', name: 'Face Mask', icon: '面膜', type: 'skincare' },
+    { id: 'body-lotion', name: 'Body Lotion', icon: '🧴', type: 'skincare' },
+    { id: 'body-butter', name: 'Body Butter', icon: '🧈', type: 'skincare' },
+  ];
+
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const categoryProducts = selectedCategory 
+    ? products.filter(p => p.category.toLowerCase().replace(/ /g, '-') === selectedCategory)
+    : [];
+
+  const CategoryButtons = () => (
+    <div className="category-section">
+      <p>Browse by Category:</p>
+      <div className="category-grid">
+        {categories.map(cat => (
+          <button 
+            key={cat.id} 
+            className={`category-btn ${selectedCategory === cat.id ? 'active' : ''}`}
+            onClick={() => setSelectedCategory(selectedCategory === cat.id ? null : cat.id)}
+          >
+            <span className="cat-icon">{cat.icon}</span>
+            <span className="cat-name">{cat.name}</span>
+          </button>
+        ))}
+      </div>
+      {selectedCategory && (
+        <div className="category-products">
+          <p className="cat-header">📂 {categories.find(c => c.id === selectedCategory)?.name}:</p>
+          <div className="product-grid">
+            {categoryProducts.map(p => (
+              <button key={p.barcode} onClick={() => handleBarcodeScan(p.barcode)}>
+                {p.type === 'skincare' ? '🧴' : '💇‍♀️'} {p.brand} {p.name.slice(0, 20)}...
+              </button>
+            ))}
+          </div>
+          {categoryProducts.length === 0 && <p className="empty">No products in this category yet.</p>}
+        </div>
+      )}
+    </div>
+  );
+
   const SampleBarcodes = () => (
     <div className="sample-barcodes">
       <p>📷 Scan a barcode or try these sample products:</p>
@@ -309,7 +366,7 @@ function App() {
                 </button>
               </div>
             )}
-            <SampleBarcodes />
+            <CategoryButtons />
           </div>
         )}
 
@@ -385,7 +442,7 @@ function App() {
                 ))}
               </div>
             </div>
-            <SampleBarcodes />
+            <CategoryButtons />
           </div>
         )}
 
