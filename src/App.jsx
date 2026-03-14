@@ -185,23 +185,6 @@ function App() {
           </button>
         ))}
       </div>
-      {selectedCategory && !showCategoryPage && (
-        <div className="category-products">
-          <p className="cat-header">📂 {categories.find(c => c.id === selectedCategory)?.name}:</p>
-          <div className="product-grid">
-            {categoryProducts.map(p => (
-              <button key={p.barcode} onClick={() => handleBarcodeScan(p.barcode)} className="product-btn-with-image">
-                {p.image && <img src={p.image} alt={p.name} className="product-thumb" />}
-                <span className="product-info">
-                  <span className="product-brand">{p.brand}</span>
-                  <span className="product-name">{p.name.slice(0, 25)}</span>
-                </span>
-              </button>
-            ))}
-          </div>
-          {categoryProducts.length === 0 && <p className="empty">No products in this category yet.</p>}
-        </div>
-      )}
     </div>
   );
 
