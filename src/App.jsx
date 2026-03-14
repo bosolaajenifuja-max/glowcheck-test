@@ -374,7 +374,7 @@ function App() {
                 </button>
               </div>
             )}
-            <CategoryButtons />
+            {!showCategoryPage && <CategoryButtons />}
           </div>
         )}
 
