@@ -1231,3 +1231,41 @@ body {
   border-color: var(--danger);
   color: var(--danger);
 }
+
+.category-page {
+  padding: var(--space-md);
+}
+
+.category-page-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.category-page-header h2 {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.back-btn {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-secondary);
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background: var(--bg-tertiary);
+}
+
+.category-page-products {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}

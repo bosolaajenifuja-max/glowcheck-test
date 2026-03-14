@@ -161,6 +161,7 @@ function App() {
   ];
 
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [showCategoryPage, setShowCategoryPage] = useState(false);
 
   const categoryProducts = selectedCategory 
     ? products.filter(p => p.category.toLowerCase().replace(/ /g, '-') === selectedCategory)
@@ -174,7 +175,10 @@ function App() {
           <button 
             key={cat.id} 
             className={`category-btn ${selectedCategory === cat.id ? 'active' : ''}`}
-            onClick={() => setSelectedCategory(selectedCategory === cat.id ? null : cat.id)}
+            onClick={() => {
+              setSelectedCategory(cat.id);
+              setShowCategoryPage(true);
+            }}
           >
             <span className="cat-icon">{cat.icon}</span>
             <span className="cat-name">{cat.name}</span>
@@ -371,6 +375,29 @@ function App() {
               </div>
             )}
             <CategoryButtons />
+          </div>
+        )}
+
+        {showCategoryPage && selectedCategory && (
+          <div className="category-page">
+            <div className="category-page-header">
+              <button className="back-btn" onClick={() => setShowCategoryPage(false)}>
+                ← Back
+              </button>
+              <h2>{categories.find(c => c.id === selectedCategory)?.icon} {categories.find(c => c.id === selectedCategory)?.name}</h2>
+            </div>
+            <div className="category-page-products">
+              {categoryProducts.map(p => (
+                <button key={p.barcode} onClick={() => handleBarcodeScan(p.barcode)} className="product-btn-with-image">
+                  {p.image && <img src={p.image} alt={p.name} className="product-thumb" />}
+                  <span className="product-info">
+                    <span className="product-brand">{p.brand}</span>
+                    <span className="product-name">{p.name}</span>
+                  </span>
+                </button>
+              ))}
+              {categoryProducts.length === 0 && <p className="empty">No products in this category yet.</p>}
+            </div>
           </div>
         )}
 
