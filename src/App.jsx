@@ -18,6 +18,51 @@ function App() {
   const scannerRef = useRef(null);
   const html5QrCodeRef = useRef(null);
   
+  // Handle scanner activation with delay to ensure DOM is ready
+  useEffect(() => {
+    if (scannerActive && !html5QrCodeRef.current) {
+      // Small delay to ensure DOM element is rendered
+      const timer = setTimeout(async () => {
+        try {
+          html5QrCodeRef.current = new Html5Qrcode("scanner-container");
+          
+          await html5QrCodeRef.current.start(
+            { facingMode: "environment" },
+            {
+              fps: 10,
+              qrbox: { width: 250, height: 150 },
+              aspectRatio: 1.777
+            },
+            (decodedText) => {
+              const product = products.find(p => p.barcode === decodedText);
+              if (product) {
+                setScannedProduct(product);
+                stopScanner();
+              } else {
+                stopScanner();
+                setActiveTab('submit');
+                alert(`Product not found in database! Please submit details to help build our community database.`);
+              }
+            },
+            (errorMessage) => {
+              // Ignore scan errors
+            }
+          );
+        } catch (err) {
+          console.error("Scanner error:", err);
+          setScannerActive(false);
+          if (err.name === 'NotAllowedError') {
+            alert("Camera access denied. Please allow camera access in your browser settings.");
+          } else {
+            alert("Camera not available. Try using the sample products below instead.");
+          }
+        }
+      }, 100);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [scannerActive]);
+  
   const { user, isAuthenticated, toggleSavedProduct, isProductSaved } = useAuth();
 
   useEffect(() => {
@@ -35,44 +80,17 @@ function App() {
       const videoDevices = devices.filter(device => device.kind === 'videoinput');
       
       if (videoDevices.length === 0) {
-        throw new Error("No camera found");
+        alert("No camera found on this device.");
+        return;
       }
       
       // Request camera permission explicitly
       await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
       
+      // Let useEffect handle the actual scanner start
       setScannerActive(true);
-      
-      html5QrCodeRef.current = new Html5Qrcode("scanner-container");
-      
-      await html5QrCodeRef.current.start(
-        { facingMode: "environment" },
-        {
-          fps: 10,
-          qrbox: { width: 250, height: 150 },
-          aspectRatio: 1.777
-        },
-        (decodedText) => {
-          // Product found!
-          const product = products.find(p => p.barcode === decodedText);
-          if (product) {
-            setScannedProduct(product);
-            stopScanner();
-          } else {
-            // Product not found - go to submit form
-            stopScanner();
-            setActiveTab('submit');
-            alert(`Product not found in database! Please submit details to help build our community database.`);
-          }
-        },
-        (errorMessage) => {
-          // Ignore scan errors (no QR code in frame)
-        }
-      );
     } catch (err) {
       console.error("Scanner error:", err);
-      setScannerActive(false);
-      // More helpful error message
       if (err.name === 'NotAllowedError' || err.message.includes('Permission denied')) {
         alert("Camera access denied. Please allow camera access in your browser settings and try again.");
       } else if (err.name === 'NotFoundError' || err.message.includes('No camera found')) {
