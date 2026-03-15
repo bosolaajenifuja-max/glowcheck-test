@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Html5QrcodeScanner, Html5Qrcode } from 'html5-qrcode';
+import Tesseract from 'tesseract.js';
 import { products, hazardCategories, getRatingColor, getRatingLabel } from './data/products';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import AuthScreen from './screens/AuthScreen';
@@ -14,6 +15,8 @@ function App() {
   const [showSubmitForm, setShowSubmitForm] = useState(false);
   const [submittedProducts, setSubmittedProducts] = useState([]);
   const [pendingBarcode, setPendingBarcode] = useState(null);
+  const [ocrProcessing, setOcrProcessing] = useState(false);
+  const [ocrProgress, setOcrProgress] = useState(0);
   const [showLegalModal, setShowLegalModal] = useState(false);
   const [legalSection, setLegalSection] = useState('terms');
   const scannerRef = useRef(null);
@@ -175,6 +178,174 @@ function App() {
     return Math.max(0, Math.min(100, rawScore - hazardPenalty));
   };
 
+  // Knowledge base for ingredient analysis
+  const ingredientDatabase = {
+    // Good ingredients (boost score)
+    good: [
+      'water', 'aqua', 'shea butter', 'coconut oil', 'olive oil', 'argan oil', 'jojoba oil',
+      'castor oil', 'aloe vera', 'aloe barbadensis', 'glycerin', 'vitamin e', 'tocopherol',
+      'rosemary', 'peppermint', 'lavender', 'tea tree', 'avocado oil', 'sweet almond oil',
+      'cocoa butter', 'shea butter', 'mango butter', 'honey', 'propolis', 'biotin',
+      'keratin', 'collagen', 'elastin', 'hyaluronic acid', 'panthenol', 'pro-vitamin b5',
+      'niacinamide', 'vitamin c', 'ascorbic acid', 'green tea', 'chamomile', 'calendula',
+      'neem', 'carrot seed', 'rosehip oil', ' Tamanu oil', 'babassu oil', ' Kukui nut oil',
+      'flaxseed', 'chia seed', 'hemp seed', 'moringa', 'baobab', 'marula'
+    ],
+    // Bad ingredients (reduce score)
+    bad: [
+      'sodium lauryl sulfate', 'sls', 'sodium laureth sulfate', 'sles', 'paraben', 'parabens',
+      'formaldehyde', 'phthalates', 'triclosan', 'synthetic fragrance', 'parfum',
+      'alcohol denat', 'denatured alcohol', 'isopropyl alcohol', 'propane', 'butane',
+      'mineral oil', 'petrolatum', 'paraffinum liquidum', 'dimethicone', 'cyclomethicone',
+      'trimethylsiloxysilicate', 'polyquaternium', 'carbomer', 'triethanolamine', 'tea',
+      'sodium hydroxide', 'potassium hydroxide', 'ammonium hydroxide', 'DEA', 'MEA', 'TEA',
+      'oxybenzone', 'octinoxate', 'homosalate', 'avobenzone', 'retinyl palmitate',
+      'coal tar', 'hydroquinone', 'mercury', 'lead', 'arsenic', 'cadmium', 'chromium',
+      ' PEG', 'polyethylene', 'polypropylene', 'polysorbate', 'ceteareth', 'steareth',
+      'cetearyl alcohol', 'cetyl alcohol', 'myristyl alcohol', 'stearyl alcohol',
+      'BHT', 'BHA', 'synthetic colors', 'FD&C', 'CI 1', 'CI 2'
+    ],
+    // Hair-specific concerns
+    curlUnfriendly: [
+      'sodium lauryl sulfate', 'sls', 'sodium laureth sulfate', 'sles', 'alcohol denat',
+      'denatured alcohol', 'isopropyl alcohol', 'propyl alcohol', 'SD alcohol',
+      'polyquaternium-10', 'polyquaternium-7', 'dimethicone', 'cyclomethicone'
+    ],
+    // allergens
+    allergens: [
+      'fragrance', 'parfum', 'linalool', 'limonene', 'citronellol', 'geraniol',
+      'eugenol', 'cinnamal', 'cinnamyl alcohol', 'benzyl benzoate', 'benzyl salicylate',
+      'farnesol', 'hexyl cinnamal', 'butylphenyl methylpropional', 'amyl cinnamal',
+      'amylcinnamyl alcohol', 'benzyl alcohol', 'evernia prunastri', 'evernia furfuracea'
+    ]
+  };
+
+  // Analyze extracted ingredients and generate ratings
+  const analyzeIngredients = (ingredientList) => {
+    const lowerIngredients = ingredientList.map(i => i.toLowerCase());
+    
+    let goodCount = 0;
+    let badCount = 0;
+    let curlUnfriendlyCount = 0;
+    let allergenCount = 0;
+
+    lowerIngredients.forEach(ing => {
+      ingredientDatabase.good.forEach(good => {
+        if (ing.includes(good) || good.includes(ing)) goodCount++;
+      });
+      ingredientDatabase.bad.forEach(bad => {
+        if (ing.includes(bad) || bad.includes(ing)) badCount++;
+      });
+      ingredientDatabase.curlUnfriendly.forEach(cu => {
+        if (ing.includes(cu) || cu.includes(ing)) curlUnfriendlyCount++;
+      });
+      ingredientDatabase.allergens.forEach(aller => {
+        if (ing.includes(aller) || aller.includes(ing)) allergenCount++;
+      });
+    });
+
+    // Calculate ratings
+    const total = ingredientList.length || 1;
+    
+    // Ingredient Safety: based on ratio of good to bad
+    let ingredientSafety = 1;
+    if (goodCount > badCount) ingredientSafety = Math.min(5, 2 + Math.floor(goodCount / 2));
+    if (badCount > goodCount) ingredientSafety = Math.max(1, 5 - badCount);
+    
+    // Curl Friendly (for hair)
+    const curlFriendly = Math.max(1, 5 - curlUnfriendlyCount);
+    
+    // Skin Friendly
+    const skinFriendly = allergenCount > 0 ? Math.max(1, 5 - allergenCount) : Math.min(5, 3 + goodCount);
+    
+    // Pregnancy Safe (simplified - flag if any known harmful ingredients)
+    const pregnancySafe = badCount === 0;
+    
+    // Vegan (simplified - check for animal-derived)
+    const vegan = !lowerIngredients.some(i => 
+      ['beeswax', 'honey', 'propolis', 'lanolin', 'keratin', 'collagen', 'elastin', 'carmine', 'shellac'].some(a => i.includes(a))
+    );
+    
+    // Cruelty Free (simplified - no animal testing ingredients)
+    const crueltyFree = true; // Would need more complex checking
+    
+    return {
+      ingredientSafety,
+      curlFriendly,
+      skinFriendly,
+      pregnancySafe,
+      vegan,
+      crueltyFree,
+      hazards: {
+        allergens: allergenCount > 0,
+        scalpIrritants: badCount > 0,
+        waxCoatings: lowerIngredients.some(i => 
+          ['dimethicone', 'cyclomethicone', 'petrolatum', 'mineral oil', 'carnauba wax', 'beeswax'].some(w => i.includes(w))
+        ),
+        dryingAlcohols: curlUnfriendlyCount > 0
+      }
+    };
+  };
+
+  // Process image with OCR
+  const processIngredientImage = async (imageData) => {
+    setOcrProcessing(true);
+    setOcrProgress(0);
+    
+    try {
+      const result = await Tesseract.recognize(
+        imageData,
+        'eng',
+        {
+          logger: m => {
+            if (m.status === 'recognizing text') {
+              setOcrProgress(Math.round(m.progress * 100));
+            }
+          }
+        }
+      );
+      
+      // Extract text and parse into ingredients
+      const rawText = result.data.text;
+      
+      // Clean up and parse ingredients
+      // Look for common ingredient list patterns
+      let ingredientsText = rawText;
+      
+      // Try to find "Ingredients" label and extract list
+      const ingredientsMatch = rawText.match(/ingredients[:\s]*(.+)/i);
+      if (ingredientsMatch) {
+        ingredientsText = ingredientsMatch[1];
+      }
+      
+      // Split by common delimiters and clean up
+      const ingredients = ingredientsText
+        .split(/[,;\n\(\)]+/)
+        .map(i => i.trim())
+        .filter(i => i.length > 2 && i.length < 50)
+        .map(i => i.replace(/^\d+\.\s*/, '')) // Remove numbered list prefixes
+        .slice(0, 50); // Limit to first 50 ingredients
+      
+      if (ingredients.length === 0) {
+        alert('Could not extract ingredients from image. Please enter manually.');
+        setOcrProcessing(false);
+        return null;
+      }
+      
+      // Analyze ingredients
+      const ratings = analyzeIngredients(ingredients);
+      
+      setOcrProcessing(false);
+      return { ingredients, ratings };
+      
+    } catch (error) {
+      console.error('OCR Error:', error);
+      alert('Failed to process image. Please enter ingredients manually.');
+      setOcrProcessing(false);
+      return null;
+    }
+  };
+
   const filteredProducts = products.filter(p => 
     p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     p.brand.toLowerCase().includes(searchQuery.toLowerCase())
@@ -241,7 +412,7 @@ function App() {
     </div>
   );
 
-  const SubmitForm = ({ scannedBarcode = null }) => {
+  const SubmitForm = ({ scannedBarcode = null, onProcessImage, ocrProcessing = false, ocrProgress = 0 }) => {
     const [formData, setFormData] = useState({
       name: '',
       brand: '',
@@ -250,7 +421,8 @@ function App() {
       ingredients: '',
       notes: '',
       image: null,
-      imagePreview: null
+      imagePreview: null,
+      analyzedRatings: null
     });
     const fileInputRef = useRef(null);
 
@@ -343,9 +515,34 @@ function App() {
                 <div className="image-preview">
                   <img src={formData.imagePreview} alt="Ingredients" />
                   <button type="button" className="remove-image-btn" onClick={removeImage}>✕</button>
+                  <button 
+                    type="button" 
+                    className="analyze-btn"
+                    onClick={async () => {
+                      const result = await onProcessImage(formData.imagePreview);
+                      if (result) {
+                        setFormData({
+                          ...formData,
+                          ingredients: result.ingredients.join(', '),
+                          analyzedRatings: result.ratings
+                        });
+                      }
+                    }}
+                  >
+                    🔍 Analyze Ingredients
+                  </button>
                 </div>
               )}
             </div>
+            
+            {ocrProcessing && (
+              <div className="ocr-progress">
+                <p>🔍 Reading ingredients... {ocrProgress}%</p>
+                <div className="progress-bar">
+                  <div className="progress-fill" style={{ width: `${ocrProgress}%` }}></div>
+                </div>
+              </div>
+            )}
             
             <div className="manual-entry-toggle">
               <p>Or enter ingredients manually:</p>
@@ -478,7 +675,12 @@ function App() {
 
         {activeTab === 'submit' && (
           <div className="submit-section">
-            <SubmitForm scannedBarcode={pendingBarcode} />
+            <SubmitForm 
+              scannedBarcode={pendingBarcode} 
+              onProcessImage={processIngredientImage}
+              ocrProcessing={ocrProcessing}
+              ocrProgress={ocrProgress}
+            />
             {submittedProducts.length > 0 && (
               <div className="submitted-list">
                 <h3>Your Submitted Products</h3>

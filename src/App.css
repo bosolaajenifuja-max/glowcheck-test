@@ -1342,3 +1342,90 @@ body {
   color: var(--accent);
   margin-bottom: var(--space-md);
 }
+
+/* Analyze Button */
+.analyze-btn {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.analyze-btn:hover {
+  opacity: 0.9;
+}
+
+/* OCR Progress */
+.ocr-progress {
+  margin: var(--space-md) 0;
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+}
+
+.ocr-progress p {
+  margin: 0 0 var(--space-sm);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+}
+
+/* Analyzed ratings display */
+.analyzed-ratings {
+  margin: var(--space-md) 0;
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+}
+
+.analyzed-ratings h4 {
+  margin: 0 0 var(--space-sm);
+  color: var(--accent);
+}
+
+.rating-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.rating-badge {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.rating-badge.good {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+.rating-badge.bad {
+  background: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+}
+
+.rating-badge.warning {
+  background: rgba(255, 152, 0, 0.2);
+  color: #ff9800;
+}
