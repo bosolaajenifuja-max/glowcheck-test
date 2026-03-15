@@ -137,25 +137,19 @@ function App() {
     let score = 0;
     let factors = 0;
 
-    // Ingredient Safety (most important) - 30%
+    // Ingredient Safety (most important) - 50%
     if (r.ingredientSafety) {
-      score += r.ingredientSafety * 6;
-      factors += 6;
+      score += r.ingredientSafety * 10;
+      factors += 10;
     }
 
-    // Skin/Hair Friendly - 25%
+    // Skin/Hair Friendly - 30%
     if (product.type === 'hair' && r.curlFriendly) {
-      score += r.curlFriendly * 5;
-      factors += 5;
+      score += r.curlFriendly * 6;
+      factors += 6;
     } else if (product.type === 'skincare' && r.skinFriendly) {
-      score += r.skinFriendly * 5;
-      factors += 5;
-    }
-
-    // Pregnancy Safe - 20%
-    if (r.pregnancySafe !== undefined) {
-      score += (r.pregnancySafe ? 5 : 1) * 4;
-      factors += 4;
+      score += r.skinFriendly * 6;
+      factors += 6;
     }
 
     // Vegan - 10%
@@ -164,10 +158,10 @@ function App() {
       factors += 2;
     }
 
-    // Cruelty Free - 15%
+    // Cruelty Free - 10%
     if (r.crueltyFree !== undefined) {
-      score += (r.crueltyFree ? 5 : 2) * 3;
-      factors += 3;
+      score += (r.crueltyFree ? 5 : 2) * 2;
+      factors += 2;
     }
 
     // Deduct points for hazards
