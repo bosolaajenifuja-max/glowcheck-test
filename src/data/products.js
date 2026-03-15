@@ -1261,6 +1261,127 @@ export const products = [
       waxCoatings: false
     },
     overallScore: 84
+  },
+  // === BLUE MAGIC ===
+  {
+    barcode: "blue001",
+    name: "Blue Magic Shampoo",
+    brand: "Blue Magic",
+    category: "Shampoo",
+    type: "hair",
+    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=100&h=100&fit=crop",
+    ingredients: ["Water", "Sodium Lauryl Sulfate", "Cocamide DEA", "Glycerin", "Sodium Chloride", "Fragrance", "Citric Acid", "Methylchloroisothiazolinone", "Methylisothiazolinone"],
+    ratings: {
+      ingredientSafety: 2,
+      curlFriendly: 2,
+      skinFriendly: 2,
+      vegan: false,
+      crueltyFree: true,
+      pregnancySafe: true
+    },
+    hazards: {
+      allergens: true,
+      scalpIrritants: true,
+      waxCoatings: false,
+      dryingAlcohols: true
+    },
+    overallScore: 42
+  },
+  {
+    barcode: "blue002",
+    name: "Blue Magic Conditioner",
+    brand: "Blue Magic",
+    category: "Conditioner",
+    type: "hair",
+    image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=100&h=100&fit=crop",
+    ingredients: ["Water", "Cetearyl Alcohol", "Behentrimonium Chloride", "Glycerin", "Mineral Oil", "Fragrance", "Lactic Acid", "Benzyl Alcohol"],
+    ratings: {
+      ingredientSafety: 3,
+      curlFriendly: 4,
+      skinFriendly: 3,
+      vegan: false,
+      crueltyFree: true,
+      pregnancySafe: true
+    },
+    hazards: {
+      allergens: true,
+      scalpIrritants: false,
+      waxCoatings: true,
+      dryingAlcohols: false
+    },
+    overallScore: 58
+  },
+  {
+    barcode: "blue003",
+    name: "Blue Magic Hair Grease",
+    brand: "Blue Magic",
+    category: "Hair Cream",
+    type: "hair",
+    image: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=100&h=100&fit=crop",
+    ingredients: ["Petrolatum", "Mineral Oil", "Lanolin", "Fragrance", "Paraffin", "Ceresin", "Microcrystalline Wax"],
+    ratings: {
+      ingredientSafety: 1,
+      curlFriendly: 1,
+      skinFriendly: 2,
+      vegan: false,
+      crueltyFree: true,
+      pregnancySafe: true
+    },
+    hazards: {
+      allergens: true,
+      scalpIrritants: false,
+      waxCoatings: true,
+      dryingAlcohols: false
+    },
+    overallScore: 28
+  },
+  {
+    barcode: "blue004",
+    name: "Blue Magic Styling Gel",
+    brand: "Blue Magic",
+    category: "Styling Gel",
+    type: "hair",
+    image: "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=100&h=100&fit=crop",
+    ingredients: ["Water", "Carbomer", "Triethanolamine", "Glycerin", "Fragrance", "VP/VA Copolymer", "Polysorbate 20", "Aloe Vera", "PEG-7 Glyceryl Cocoate"],
+    ratings: {
+      ingredientSafety: 3,
+      curlFriendly: 3,
+      skinFriendly: 3,
+      vegan: true,
+      crueltyFree: true,
+      pregnancySafe: true
+    },
+    hazards: {
+      allergens: true,
+      scalpIrritants: false,
+      waxCoatings: false,
+      dryingAlcohols: false
+    },
+    overallScore: 62
+  },
+  {
+    barcode: "blue005",
+    name: "Blue Magic Coconut Oil",
+    brand: "Blue Magic",
+    category: "Hair Oil",
+    type: "hair",
+    image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=100&h=100&fit=crop",
+    ingredients: ["Coconut Oil", "Mineral Oil", "Fragrance", "Petrolatum", "Vitamin E"],
+    ratings: {
+      ingredientSafety: 3,
+      curlFriendly: 4,
+      skinFriendly: 4,
+      vegan: true,
+      crueltyFree: true,
+      pregnancySafe: true
+    },
+    hazards: {
+      allergens: true,
+      scalpIrritants: false,
+      waxCoatings: true,
+      dryingAlcohols: false
+    },
+    overallScore: 56
   }
 ];
 
