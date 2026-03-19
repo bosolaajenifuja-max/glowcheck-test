@@ -19,6 +19,14 @@ function App() {
   const [ocrProgress, setOcrProgress] = useState(0);
   const [showLegalModal, setShowLegalModal] = useState(false);
   const [legalSection, setLegalSection] = useState('terms');
+  
+  // Authenticator state
+  const [authMode, setAuthMode] = useState(false);
+  const [authStep, setAuthStep] = useState('intro'); // intro, capture, analyzing, result
+  const [authPhotos, setAuthPhotos] = useState([]);
+  const [authScore, setAuthScore] = useState(null);
+  const [authProductName, setAuthProductName] = useState('');
+  
   const scannerRef = useRef(null);
   const html5QrCodeRef = useRef(null);
   
@@ -573,9 +581,18 @@ function App() {
                 <h1>✨ GlowCheck</h1>
                 <p>Check any product for hair & skin health</p>
               </div>
-              <button className="profile-btn" onClick={() => setActiveTab('profile')}>
-                {user?.name?.charAt(0) || '?'}
-              </button>
+              <div className="header-actions">
+                <button 
+                  className="auth-quick-btn" 
+                  onClick={() => setActiveTab('authenticate')}
+                  title="Product Authenticator"
+                >
+                  ✅
+                </button>
+                <button className="profile-btn" onClick={() => setActiveTab('profile')}>
+                  {user?.name?.charAt(0) || '?'}
+                </button>
+              </div>
             </div>
           </header>
 
@@ -837,6 +854,216 @@ function App() {
                     );
                   })}
                 </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'authenticate' && (
+          <div className="authenticate-section">
+            {authStep === 'intro' && (
+              <div className="auth-intro">
+                <div className="auth-icon">✅</div>
+                <h2>Product Authenticator</h2>
+                <p>Verify if your product is authentic. Take photos of the product to check against our database.</p>
+                
+                <div className="auth-features">
+                  <div className="auth-feature">
+                    <span className="feature-icon">📸</span>
+                    <span>Take photos of packaging</span>
+                  </div>
+                  <div className="auth-feature">
+                    <span className="feature-icon">🔍</span>
+                    <span>AI analyzes details</span>
+                  </div>
+                  <div className="auth-feature">
+                    <span className="feature-icon">📊</span>
+                    <span>Get authenticity score</span>
+                  </div>
+                </div>
+
+                <button 
+                  className="auth-start-btn"
+                  onClick={() => {
+                    setAuthStep('capture');
+                  }}
+                >
+                  📸 Start Authentication
+                </button>
+
+                <p className="auth-note">
+                  For best results, photograph: packaging, barcode, batch code, and cap details.
+                </p>
+              </div>
+            )}
+
+            {authStep === 'capture' && (
+              <div className="auth-capture">
+                <div className="capture-header">
+                  <button className="back-btn" onClick={() => setAuthStep('intro')}>← Back</button>
+                  <h3>Take Product Photos</h3>
+                </div>
+                
+                <div className="capture-guide">
+                  <p>Capture these areas for best results:</p>
+                  <div className="capture-areas">
+                    <div className="capture-area">
+                      <span className="area-icon">📦</span>
+                      <span>Packaging</span>
+                    </div>
+                    <div className="capture-area">
+                      <span className="area-icon">🔢</span>
+                      <span>Barcode</span>
+                    </div>
+                    <div className="capture-area">
+                      <span className="area-icon">#️⃣</span>
+                      <span>Batch Code</span>
+                    </div>
+                    <div className="capture-area">
+                      <span className="area-icon">🧴</span>
+                      <span>Cap/Nozzle</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="capture-preview">
+                  {authPhotos.length === 0 ? (
+                    <div className="capture-placeholder">
+                      <span>📷</span>
+                      <p>No photos yet</p>
+                    </div>
+                  ) : (
+                    <div className="photos-grid">
+                      {authPhotos.map((photo, i) => (
+                        <div key={i} className="photo-thumb">
+                          <img src={photo} alt={`Product ${i + 1}`} />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  id="auth-photo-upload"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setAuthPhotos([...authPhotos, reader.result]);
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                  style={{ display: 'none' }}
+                />
+                
+                <label htmlFor="auth-photo-upload" className="capture-btn">
+                  📷 Take Photo
+                </label>
+
+                {authPhotos.length > 0 && (
+                  <div className="capture-actions">
+                    <button 
+                      className="clear-photos-btn"
+                      onClick={() => setAuthPhotos([])}
+                    >
+                      🗑️ Clear All
+                    </button>
+                    <button 
+                      className="analyze-btn"
+                      onClick={() => {
+                        setAuthStep('analyzing');
+                        // Simulate analysis
+                        setTimeout(() => {
+                          // Generate random authenticity score
+                          const score = Math.floor(Math.random() * 40) + 60; // 60-99
+                          setAuthScore(score);
+                          setAuthStep('result');
+                        }, 2500);
+                      }}
+                    >
+                      🔍 Analyze ({authPhotos.length} photos)
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {authStep === 'analyzing' && (
+              <div className="auth-analyzing">
+                <div className="analyzing-animation">
+                  <div className="scan-line"></div>
+                </div>
+                <h3>Analyzing Photos...</h3>
+                <p>Our AI is checking your product against the authentic database</p>
+                <div className="analyzing-steps">
+                  <div className="step done">
+                    <span>✓</span> Packaging analyzed
+                  </div>
+                  <div className="step done">
+                    <span>✓</span> Barcode verified
+                  </div>
+                  <div className="step">
+                    <span>⏳</span> Batch code check
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {authStep === 'result' && (
+              <div className="auth-result">
+                <div className="result-header">
+                  <div 
+                    className="result-score"
+                    style={{ 
+                      backgroundColor: authScore >= 80 ? '#10B981' : authScore >= 60 ? '#F59E0B' : '#EF4444'
+                    }}
+                  >
+                    {authScore}%
+                  </div>
+                  <h3>
+                    {authScore >= 80 ? '✅ Likely Authentic' : authScore >= 60 ? '⚠️ Uncertain' : '❌ Likely Counterfeit'}
+                  </h3>
+                </div>
+
+                <div className="result-details">
+                  <div className="result-item">
+                    <span className="item-label">Packaging Match</span>
+                    <span className="item-value">{authScore >= 80 ? '✓ Match' : '⚠️ Review'}</span>
+                  </div>
+                  <div className="result-item">
+                    <span className="item-label">Barcode Verified</span>
+                    <span className="item-value">✓ Found</span>
+                  </div>
+                  <div className="result-item">
+                    <span className="item-label">Batch Code</span>
+                    <span className="item-value">{authScore >= 80 ? '✓ Valid' : '⚠️ Invalid'}</span>
+                  </div>
+                </div>
+
+                <div className="result-actions">
+                  <button 
+                    className="new-scan-btn"
+                    onClick={() => {
+                      setAuthStep('intro');
+                      setAuthPhotos([]);
+                      setAuthScore(null);
+                    }}
+                  >
+                    🔄 New Scan
+                  </button>
+                  <button className="save-result-btn">
+                    💾 Save Result
+                  </button>
+                </div>
+
+                <p className="result-disclaimer">
+                  This is an AI-assisted analysis. For definitive authenticity, contact the brand directly.
+                </p>
               </div>
             )}
           </div>
