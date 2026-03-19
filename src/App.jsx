@@ -581,18 +581,9 @@ function App() {
                 <h1>✨ GlowCheck</h1>
                 <p>Check any product for hair & skin health</p>
               </div>
-              <div className="header-actions">
-                <button 
-                  className="auth-quick-btn" 
-                  onClick={() => setActiveTab('authenticate')}
-                  title="Product Authenticator"
-                >
-                  ✅
-                </button>
-                <button className="profile-btn" onClick={() => setActiveTab('profile')}>
-                  {user?.name?.charAt(0) || '?'}
-                </button>
-              </div>
+              <button className="profile-btn" onClick={() => setActiveTab('profile')}>
+                {user?.name?.charAt(0) || '?'}
+              </button>
             </div>
           </header>
 
@@ -620,6 +611,12 @@ function App() {
           onClick={() => setActiveTab('submit')}
         >
           📝 Submit
+        </button>
+        <button 
+          className={activeTab === 'authenticate' ? 'active' : ''} 
+          onClick={() => setActiveTab('authenticate')}
+        >
+          ✅ Auth
         </button>
         <button 
           className={activeTab === 'legal' ? 'active' : ''} 
